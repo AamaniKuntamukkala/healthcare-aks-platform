@@ -1,0 +1,14 @@
+on:
+  push:
+    branches: [ main ]
+ 
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: azure/login@v1
+      - run: az acr login --name $ACR_NAME
+      - run: |
+          docker build -t $ACR/patient:${{ github.sha }} services/patient-service
+          docker push $ACR/patient:${{ github.sha }}
