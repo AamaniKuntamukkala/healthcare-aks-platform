@@ -1,5 +1,6 @@
 provider "azurerm" {
   features {}
+  subscription_id = "73325b5f-dd1c-46f6-89ad-748adf69b5b9"
 }
  
 data "azurerm_client_config" "current" {}
