@@ -2,7 +2,7 @@
 FROM bellsoft/liberica-openjdk-alpine-musl:17 AS builder
 WORKDIR /workspace
  
-RUN apk add --no-cache maven bash curl unzip
+RUN apk add --no-cache maven
  
 COPY pom.xml .
 RUN mvn -B dependency:go-offline || true
