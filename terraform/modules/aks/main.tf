@@ -19,6 +19,13 @@ resource "azurerm_kubernetes_cluster" "aks" {
   identity {
     type = "SystemAssigned"
   }
+  network_profile {
+  network_plugin = "azure"
+ 
+  service_cidr   = "10.2.0.0/16"
+  dns_service_ip = "10.2.0.10"
+  pod_cidr       = "10.244.0.0/16"
+  }
 }
  
 resource "azurerm_role_assignment" "acr_pull" {
@@ -35,10 +42,5 @@ output "identity_principal_id" {
   value = azurerm_kubernetes_cluster.aks.identity[0].principal_id
 }
 
-network_profile {
-  network_plugin = "azure"
- 
-  service_cidr   = "10.2.0.0/16"
-  dns_service_ip = "10.2.0.10"
-  pod_cidr       = "10.244.0.0/16"
-}
+
+
