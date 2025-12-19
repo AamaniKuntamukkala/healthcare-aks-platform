@@ -1,0 +1,10 @@
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: azure/login@v1
+      - uses: azure/aks-set-context@v3
+      - run: |
+          helm upgrade --install patient helm/healthcare \
+          --set image.repository=$ACR/patient \
+          --set image.tag=${{ github.sha }}
