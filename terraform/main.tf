@@ -35,10 +35,11 @@ module "aks" {
   acr_id    = module.acr.acr_id
 }
  
-module "keyvault" {
-  source            = "./modules/keyvault"
-  rg                = azurerm_resource_group.rg.name
-  location          = azurerm_resource_group.rg.location
-  tenant_id         = data.azurerm_client_config.current.tenant_id
-  aks_principal_id  = module.aks.identity_principal_id
-}
+# module "keyvault" {
+#   source            = "./modules/keyvault"
+#   rg                = azurerm_resource_group.rg.name
+#   location          = azurerm_resource_group.rg.location
+#   tenant_id         = data.azurerm_client_config.current.tenant_id
+#   aks_principal_id  = module.aks.identity_principal_id
+# }
+
