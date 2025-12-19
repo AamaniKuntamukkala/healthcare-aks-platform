@@ -15,14 +15,18 @@ module "network" {
   rg       = azurerm_resource_group.rg.name
   location = azurerm_resource_group.rg.location
 }
+
+resource "random_id" "suffix" {
+  byte_length = 3
+}
  
 module "acr" {
   source   = "./modules/acr"
   rg       = azurerm_resource_group.rg.name
   location = azurerm_resource_group.rg.location
-  acr_name = "healthcareacr123"
+  acr_name = "hcacr${random_id.suffix.hex}"
 }
- 
+
 module "aks" {
   source    = "./modules/aks"
   rg        = azurerm_resource_group.rg.name
