@@ -1,3 +1,8 @@
+variable "rg" {}
+variable "location" {}
+variable "subnet_id" {}
+variable "acr_id" {}
+ 
 resource "azurerm_kubernetes_cluster" "aks" {
   name                = "healthcare-aks"
   location            = var.location
@@ -15,9 +20,14 @@ resource "azurerm_kubernetes_cluster" "aks" {
     type = "SystemAssigned"
   }
 }
-Attach ACR:
+ 
 resource "azurerm_role_assignment" "acr_pull" {
-  principal_id         = azurerm_kubernetes_cluster.aks.identity[0].principal_id
-  role_definition_name = "AcrPull"
   scope                = var.acr_id
+  role_definition_name = "AcrPull"
+  principal_id         = azurerm_kubernetes_cluster.aks.identity[0].principal_id
+}
+ 
+output "kubeconfig" {
+  value = azurerm_kubernetes_cluster.aks.kube_config_raw
+  sensitive = true
 }
