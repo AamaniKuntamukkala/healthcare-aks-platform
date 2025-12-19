@@ -10,20 +10,20 @@ resource "azurerm_resource_group" "rg" {
 }
  
 module "network" {
-  source   = "../../modules/network"
+  source   = "../modules/network"
   rg       = azurerm_resource_group.rg.name
   location = azurerm_resource_group.rg.location
 }
  
 module "acr" {
-  source   = "../../modules/acr"
+  source   = "../modules/acr"
   rg       = azurerm_resource_group.rg.name
   location = azurerm_resource_group.rg.location
   acr_name = "healthcareacr123"
 }
  
 module "aks" {
-  source    = "../../modules/aks"
+  source    = "../modules/aks"
   rg        = azurerm_resource_group.rg.name
   location  = azurerm_resource_group.rg.location
   subnet_id = module.network.subnet_id
@@ -31,7 +31,7 @@ module "aks" {
 }
  
 module "keyvault" {
-  source            = "../../modules/keyvault"
+  source            = "../modules/keyvault"
   rg                = azurerm_resource_group.rg.name
   location          = azurerm_resource_group.rg.location
   tenant_id         = data.azurerm_client_config.current.tenant_id
