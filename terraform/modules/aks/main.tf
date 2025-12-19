@@ -12,7 +12,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
   default_node_pool {
     name       = "system"
     node_count = 2
-    vm_size    = "Standard_DS2_v2"
+    vm_size    = "Standard_B2s"
     vnet_subnet_id = var.subnet_id
   }
  
@@ -34,3 +34,4 @@ output "kubeconfig" {
 output "identity_principal_id" {
   value = azurerm_kubernetes_cluster.aks.identity[0].principal_id
 }
+
